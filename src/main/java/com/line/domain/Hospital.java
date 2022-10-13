@@ -45,13 +45,13 @@ public class Hospital {
 
 
     public Hospital(String id, String adress, String district, String category, Integer emergencyRoom, String name, String subdivision) {
-        this.id = id.replace("\"","\'");
-        this.adress = adress.replace("\"","\'");
-        this.district = district.replace("\"","\'");
-        this.category = category.replace("\"","\'");
+        this.id = id;
+        this.adress = adress;
+        this.district = district;
+        this.category = category;
         this.emergencyRoom = emergencyRoom;
-        this.name = name.replace("\"","\'");
-        this.subdivision = subdivision.replace("\"","\'");
+        this.name = name;
+        this.subdivision = subdivision;
     }
 
     public String getAdress() {

@@ -13,13 +13,14 @@ public class HospitalParser implements Parser<Hospital>{
         if(splitted[6] != null){
             temp = Integer.parseInt(splitted[6].replace("\"",""));
         }
-        return new Hospital(splitted[0]
-        ,splitted[1]
+        return new Hospital(
+                splitted[0].replace("\"","")
+        ,splitted[1].replace("\"","")
         ,setDistrict(splitted[1])
-        ,splitted[4]
+        ,splitted[4].replace("\"","")
         ,temp
-        ,splitted[10]
-        ,setSubdivision(splitted[3])
+        ,splitted[10].replace("\"","")
+        ,setSubdivision(splitted[10])
         );
     }
 
@@ -27,7 +28,7 @@ public class HospitalParser implements Parser<Hospital>{
         String[] subdivisionList = new String[]{
                 "치과", "성형외과", "한방병원", "한의원", "영상의학과", "이비인후과", "소아청소년과", "내과", "정형외과", "외과",
                 "가정의학과","피부과", "안과", "소아과", "요양병원", "비뇨기과", "정신건강의학과", "산부인과", "재활의학과",
-                "정신과", "마취통증의학과"};
+                "정신과", "마취통증의학과" , "의원"};
         for(String str : subdivisionList){
             if(s.contains(str)){
                 s = str;
@@ -46,7 +47,7 @@ public class HospitalParser implements Parser<Hospital>{
         String sb = null;
         String info = null;
 
-        info = obj.getId() + ","+obj.getAdress()+","+obj.getDistrict() + "," + obj.getCategory()+","+obj.getEmergencyRoom()+","+obj.getName()+","+obj.getSubdivision();
+        info = "'" +obj.getId() + "','"+obj.getAdress()+"','"+obj.getDistrict() + "','" + obj.getCategory()+"','"+obj.getEmergencyRoom()+"','"+obj.getName()+"','"+obj.getSubdivision() + "'";
         sb = "values(" + info + ")";
 
         return sb;
