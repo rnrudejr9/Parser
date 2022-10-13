@@ -17,7 +17,7 @@ public class Main {
 
 
         SQLWriter<Hospital> sw = new SQLWriter<>(new HospitalParser());
-        sw.sqlWrite("sql",hospitals);
+        sw.sqlWrite("hospital.sql",hospitals);
         //sw write 메소드로 hospital list 에 있는 정보들을 파일에 쓰기
 
     }

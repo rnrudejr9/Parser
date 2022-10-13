@@ -13,7 +13,9 @@ class HospitalParserTest {
     @DisplayName("id가 파싱이 자 ㄹ되는 지?")
     public void dummy() {
         HospitalParser hospitalParser = new HospitalParser();
+
         Hospital hospital = hospitalParser.parse(line1);
         Assertions.assertEquals("A1120837",hospital.getAdress().replace("\"",""));
+
     }
 }

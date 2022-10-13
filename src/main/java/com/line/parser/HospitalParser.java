@@ -16,7 +16,7 @@ public class HospitalParser implements Parser<Hospital>{
         return new Hospital(
                 splitted[0].replace("\"","")
         ,splitted[1].replace("\"","")
-        ,setDistrict(splitted[1])
+        ,setDistrict(splitted[1]).replace("\"","")
         ,splitted[4].replace("\"","")
         ,temp
         ,splitted[10].replace("\"","")
@@ -31,10 +31,10 @@ public class HospitalParser implements Parser<Hospital>{
                 "정신과", "마취통증의학과" , "의원"};
         for(String str : subdivisionList){
             if(s.contains(str)){
-                s = str;
+                return str;
             }
         }
-        return s;
+        return "?";
     }
 
     public String setDistrict(String s){
