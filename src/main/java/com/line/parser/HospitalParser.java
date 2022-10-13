@@ -2,6 +2,8 @@ package com.line.parser;
 
 import com.line.domain.Hospital;
 
+import java.util.List;
+
 public class HospitalParser implements Parser<Hospital>{
 
     @Override
@@ -20,4 +22,11 @@ public class HospitalParser implements Parser<Hospital>{
         ,splitted[12]
         );
     }
+
+    @Override
+    public void parseToString(Hospital obj) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(obj.getId() + " ");
+    }
+
 }

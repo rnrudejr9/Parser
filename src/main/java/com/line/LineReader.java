@@ -25,6 +25,6 @@ public class LineReader<T> {
         while((str = br.readLine()) != null){
             result.add(paser.parse(str));
         }
-        return result;
+       return result;
     }
 }
