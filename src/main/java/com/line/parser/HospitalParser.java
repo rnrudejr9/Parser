@@ -15,7 +15,7 @@ public class HospitalParser implements Parser<Hospital>{
         }
         return new Hospital(splitted[0]
         ,splitted[1]
-        ,splitted[2]
+        ,setDistrict(splitted[1])
         ,splitted[4]
         ,temp
         ,splitted[10]
@@ -23,6 +23,11 @@ public class HospitalParser implements Parser<Hospital>{
         );
     }
 
+    public String setDistrict(String s){
+        String[] temp = s.split(" ");
+        String result = temp[0]+ " "+ temp[1];
+        return result;
+    }
     @Override
     public String parseToString(Hospital obj) {
         String sb = null;
