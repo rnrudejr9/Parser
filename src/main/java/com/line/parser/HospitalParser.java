@@ -19,8 +19,21 @@ public class HospitalParser implements Parser<Hospital>{
         ,splitted[4]
         ,temp
         ,splitted[10]
-        ,splitted[12]
+        ,setSubdivision(splitted[3])
         );
+    }
+
+    private String setSubdivision(String s){
+        String[] subdivisionList = new String[]{
+                "치과", "성형외과", "한방병원", "한의원", "영상의학과", "이비인후과", "소아청소년과", "내과", "정형외과", "외과",
+                "가정의학과","피부과", "안과", "소아과", "요양병원", "비뇨기과", "정신건강의학과", "산부인과", "재활의학과",
+                "정신과", "마취통증의학과"};
+        for(String str : subdivisionList){
+            if(s.contains(str)){
+                s = str;
+            }
+        }
+        return s;
     }
 
     public String setDistrict(String s){
