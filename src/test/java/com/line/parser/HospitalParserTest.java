@@ -14,6 +14,6 @@ class HospitalParserTest {
     public void dummy() {
         HospitalParser hospitalParser = new HospitalParser();
         Hospital hospital = hospitalParser.parse(line1);
-        Assertions.assertEquals("A1120837",hospital.getId().replace("\"",""));
+        Assertions.assertEquals("A1120837",hospital.getAdress().replace("\"",""));
     }
 }

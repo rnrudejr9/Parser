@@ -12,8 +12,8 @@ import java.util.List;
 
 public class SQLWriter<T> {
     Parser<T> parser;
-    private String databasename = "";
-    private String tablename = "";
+    private String databasename = "likelion-db";
+    private String tablename = "Hospital-table";
     public SQLWriter(Parser<T> parser) {
         this.parser = parser;
     }
@@ -24,11 +24,15 @@ public class SQLWriter<T> {
             File file = new File(filename);
             if(!file.exists()){
                 file.createNewFile();
+            }else{
+                file.delete();
+                file.createNewFile();
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
             for(int i = 0 ; i<list.size();i++) {
-                writer.write("insert into '" + databasename + "'.'"+tablename + "'('");
-                writer.write("hello");
+                writer.write("insert into '" + databasename + "'.'"+tablename + "'\n");
+                writer.write("('id','adress','district','catagory','emergency_room','name','subdivision')\n");
+                writer.write(parser.parseToString(list.get(i)) + "\n");
 
             }
         } catch (IOException e) {

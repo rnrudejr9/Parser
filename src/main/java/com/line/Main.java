@@ -15,7 +15,7 @@ public class Main {
         List<Hospital> hospitals = lr.readLines(filename);
 
         SQLWriter<Hospital> sw = new SQLWriter<>(new HospitalParser());
-
+        sw.sqlWrite("sql",hospitals);
 
     }
 }

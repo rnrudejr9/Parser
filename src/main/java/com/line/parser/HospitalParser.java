@@ -2,7 +2,7 @@ package com.line.parser;
 
 import com.line.domain.Hospital;
 
-import java.util.List;
+import java.util.Iterator;
 
 public class HospitalParser implements Parser<Hospital>{
 
@@ -24,9 +24,14 @@ public class HospitalParser implements Parser<Hospital>{
     }
 
     @Override
-    public void parseToString(Hospital obj) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(obj.getId() + " ");
+    public String parseToString(Hospital obj) {
+        String sb = null;
+        String info = null;
+
+        info = obj.getId() + ","+obj.getAdress()+","+obj.getDistrict() + "," + obj.getCategory()+","+obj.getEmergencyRoom()+","+obj.getName()+","+obj.getSubdivision();
+        sb = "values(" + info + ")";
+
+        return sb;
     }
 
 }
