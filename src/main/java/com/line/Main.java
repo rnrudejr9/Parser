@@ -24,17 +24,26 @@ public class Main {
 
         SQLWriter<Hospital> sw = new SQLWriter<>(new HospitalParser());
         sw.sqlWrite("hospital.sql",hospitals);
-        //sw write 메소드로 hospital list 에 있는 정보들을 파일에 쓰기
+        //sw write 메소드로 hospital list 에 있는 정보들을 hospital.sql 파일에 쓰기
 
         String url = "jdbc:mysql://localhost/likelion-db";
         String user = "root";
         String pw = "12345";
         DBLoader db = new DBLoader(url,user,pw);
-//        db.loadDatabase(hospitals);
+        //database 연동과정
 
-        List<UserDAO> dao = new ArrayList<>();
-        UserDAO userdao = new UserDAO(1,"hello","world");
-        //userdao.add(userdao);
-        userdao.search();
+//        db.loadDatabase(hospitals);
+        //sql파일을 database에 insert 하는 과정
+
+
+        db.readDatabase();
+        //database에 있는 값들을 불러오는 과정
+
+
+//        List<UserDAO> dao = new ArrayList<>();
+//        UserDAO userdao = new UserDAO(1,"hello","world");
+//        //userdao.add(userdao);
+//        userdao.search();
+        //userdao 연습문제
     }
 }

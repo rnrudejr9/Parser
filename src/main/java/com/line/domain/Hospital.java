@@ -54,6 +54,16 @@ public class Hospital {
         this.subdivision = subdivision;
     }
 
+    public void print(){
+        System.out.println(this.getId());
+        System.out.println(this.getAdress());
+        System.out.println(this.getDistrict());
+        System.out.println(this.getCategory());
+        System.out.println(this.getEmergencyRoom());
+        System.out.println(this.getName());
+        System.out.println(this.getSubdivision());
+    }
+
     public String getAdress() {
         return adress;
     }
