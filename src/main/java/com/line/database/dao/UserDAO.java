@@ -1,17 +1,17 @@
-package com.line.database;
+package com.line.database.dao;
 
-import com.line.domain.Hospital;
+import com.line.database.ConnectionMaker;
+import com.line.database.LDAOConnection;
 import com.line.domain.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UserDAO {
     private ConnectionMaker connectionmaker;
-    public UserDAO(){
-        connectionmaker = new ConnectionMaker();
+    public UserDAO(ConnectionMaker connectionmaker){
+        this.connectionmaker = connectionmaker;
     }
 
     public void add(User user) throws SQLException {
@@ -26,12 +26,28 @@ public class UserDAO {
         ps.close();
         c.close();
     }
-    public void delete(User user) throws SQLException {
+    public void deleteAll() throws SQLException {
         Connection c = connectionmaker.getConnection();
         String sql = "delete from usertable";
         PreparedStatement ps = c.prepareStatement(sql);
         ps.executeUpdate();
 
+        ps.close();
+        c.close();
+    }
+
+    public void getCount() throws SQLException {
+        Connection c = connectionmaker.getConnection();
+        String sql = "select * from usertable";
+        PreparedStatement ps = c.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        int cnt = 0;
+        while(rs.next()){
+            cnt++;
+        }
+        System.out.println("count: " + cnt);
+
+        rs.close();
         ps.close();
         c.close();
     }
@@ -56,6 +72,7 @@ public class UserDAO {
                 System.out.printf("password : %3s\n",temp.getPassword());
             }
 
+            rs.close();
             ps.close();
             c.close();
     }

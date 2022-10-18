@@ -1,17 +1,11 @@
 package com.line;
 
 
-import com.line.database.DBLoader;
-import com.line.database.NUserDAO;
-import com.line.database.UserDAO;
-import com.line.domain.Hospital;
+import com.line.database.dao.DAOFactory;
+import com.line.database.dao.UserDAO;
 import com.line.domain.User;
-import com.line.parser.HospitalParser;
 
 import java.io.IOException;
-import java.nio.file.attribute.UserDefinedFileAttributeView;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.*;
 
 
@@ -27,14 +21,15 @@ public class Main {
 //        sw.sqlWrite("hospital.sql",hospitals);
         //sw write 메소드로 hospital list 에 있는 정보들을 hospital.sql 파일에 쓰기
 
-
-        UserDAO dao = new UserDAO();
+        UserDAO dao = new DAOFactory().userDao();
         try {
+            dao.deleteAll();
             dao.add(new User("hello","k","pw"));
-            dao.add(new User("2","k","pw"));
-            dao.add(new User("3","k","pw"));
+            dao.add(new User("123423","k","pw"));
+            dao.add(new User("21341234","k","pw"));
             dao.select("hello");
-            dao.delete(new User());
+            dao.getCount();
+            dao.deleteAll();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
