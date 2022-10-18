@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class UserDAO {
+public class UserDAO {
+    private ConnectionMaker connectionmaker;
     public UserDAO(){
-
+        connectionmaker = new ConnectionMaker();
     }
-    abstract Connection getConnection() throws SQLException;
 
     public void add(User user) throws SQLException {
-        Connection c = getConnection();
+        Connection c = connectionmaker.getConnection();
         String sql = "insert into usertable(id,name,password) values (?,?,?)";
         PreparedStatement ps = c.prepareStatement(sql);
         ps.setString(1, user.getId());
@@ -27,7 +27,7 @@ public abstract class UserDAO {
         c.close();
     }
     public void delete(User user) throws SQLException {
-        Connection c = getConnection();
+        Connection c = connectionmaker.getConnection();
         String sql = "delete from usertable";
         PreparedStatement ps = c.prepareStatement(sql);
         ps.executeUpdate();
@@ -37,7 +37,7 @@ public abstract class UserDAO {
     }
 
     public void select(String id) throws SQLException {
-            Connection c = getConnection();
+            Connection c = connectionmaker.getConnection();
             String sql = "select * from usertable where id = ?";
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1,id);
@@ -51,9 +51,9 @@ public abstract class UserDAO {
                list.add(user);
             }
             for(User temp : list){
-                System.out.println(temp.getId());
-                System.out.println(temp.getName());
-                System.out.println(temp.getPassword());
+                System.out.printf("id : %3s |", temp.getId());
+                System.out.printf("name : %3s |", temp.getName());
+                System.out.printf("password : %3s\n",temp.getPassword());
             }
 
             ps.close();

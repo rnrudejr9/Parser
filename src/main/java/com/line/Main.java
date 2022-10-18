@@ -28,12 +28,12 @@ public class Main {
         //sw write 메소드로 hospital list 에 있는 정보들을 hospital.sql 파일에 쓰기
 
 
-        UserDAO dao = new NUserDAO();
+        UserDAO dao = new UserDAO();
         try {
             dao.add(new User("hello","k","pw"));
             dao.add(new User("2","k","pw"));
             dao.add(new User("3","k","pw"));
-            dao.select("2");
+            dao.select("hello");
             dao.delete(new User());
         } catch (SQLException e) {
             throw new RuntimeException(e);
