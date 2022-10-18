@@ -2,6 +2,7 @@ package com.line;
 
 
 import com.line.database.DBLoader;
+import com.line.database.NUserDAO;
 import com.line.database.UserDAO;
 import com.line.domain.Hospital;
 import com.line.domain.User;
@@ -27,8 +28,12 @@ public class Main {
         //sw write 메소드로 hospital list 에 있는 정보들을 hospital.sql 파일에 쓰기
 
 
-        UserDAO dao = new UserDAO();
+        UserDAO dao = new NUserDAO();
         try {
+            dao.add(new User("hello","k","pw"));
+            dao.add(new User("2","k","pw"));
+            dao.add(new User("3","k","pw"));
+            dao.search();
             dao.delete(new User());
         } catch (SQLException e) {
             throw new RuntimeException(e);

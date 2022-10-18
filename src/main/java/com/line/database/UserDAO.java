@@ -8,19 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserDAO {
+public abstract class UserDAO {
     public UserDAO(){
 
     }
-    private Connection getConnection() throws SQLException {
-
-        String url = "jdbc:mysql://localhost/likelion-db";
-        String user = "root";
-        String pw = "12345";
-
-        Connection c = DriverManager.getConnection(url,user,pw);
-        return c;
-    }
+    abstract Connection getConnection() throws SQLException;
 
     public void add(User user) throws SQLException {
         Connection c = getConnection();
@@ -53,8 +45,8 @@ public class UserDAO {
             while (rs.next()){
                 User user = new User();
                 user.setId(rs.getString("id"));
-                user.setPassword(rs.getString("name"));
-                user.setName(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setPassword(rs.getString("password"));
                list.add(user);
             }
             for(User temp : list){
