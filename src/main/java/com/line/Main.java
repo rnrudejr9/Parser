@@ -33,7 +33,7 @@ public class Main {
             dao.add(new User("hello","k","pw"));
             dao.add(new User("2","k","pw"));
             dao.add(new User("3","k","pw"));
-            dao.search();
+            dao.select("2");
             dao.delete(new User());
         } catch (SQLException e) {
             throw new RuntimeException(e);

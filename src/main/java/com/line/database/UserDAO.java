@@ -36,10 +36,11 @@ public abstract class UserDAO {
         c.close();
     }
 
-    public void search() throws SQLException {
+    public void select(String id) throws SQLException {
             Connection c = getConnection();
-            String sql = "select * from usertable";
+            String sql = "select * from usertable where id = ?";
             PreparedStatement ps = c.prepareStatement(sql);
+            ps.setString(1,id);
             ResultSet rs = ps.executeQuery();
             List<User> list = new ArrayList<>();
             while (rs.next()){
