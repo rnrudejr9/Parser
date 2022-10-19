@@ -1,7 +1,6 @@
 package com.line.database.dao;
 
-import com.line.database.ConnectionMaker;
-import com.line.database.LDAOConnection;
+import com.line.database.connection.ConnectionMaker;
 import com.line.domain.User;
 
 import java.sql.*;
