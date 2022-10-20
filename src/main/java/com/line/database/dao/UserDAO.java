@@ -27,30 +27,67 @@ public class UserDAO {
         c.close();
     }
     public void deleteAll() throws SQLException {
-        Connection c = connectionmaker.getConnection();
+        Connection c = null;
         String sql = "delete from usertable";
-        PreparedStatement ps = c.prepareStatement(sql);
-        ps.executeUpdate();
+        PreparedStatement ps = null;
 
-        ps.close();
-        c.close();
+        try{
+            c = connectionmaker.getConnection();
+            ps = c.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (RuntimeException e){
+            throw new RuntimeException(e);
+        } finally {
+            if(ps != null){
+                try{
+                    ps.close();
+                }catch (SQLException e){
+
+                }
+            }
+            if(c != null){
+                try{
+                    c.close();
+                }catch (SQLException e){
+
+                }
+            }
+        }
     }
 
     public int getCount() throws SQLException {
-        Connection c = connectionmaker.getConnection();
+        Connection c = null;
+        PreparedStatement ps = null;
         String sql = "select * from usertable";
-        PreparedStatement ps = c.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        int cnt = 0;
-        while(rs.next()){
-            cnt++;
-        }
-        System.out.println("count: " + cnt);
+        try{
+            c = connectionmaker.getConnection();
+            ps = c.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            int cnt = 0;
+            while (rs.next()){
+                cnt++;
+            }
+            System.out.println("count: " + cnt);
+            return cnt;
+        }catch (RuntimeException e){
+            throw new RuntimeException(e);
+        } finally {
+            if(ps != null){
+                try{
+                    ps.close();
+                }catch (SQLException e){
 
-        rs.close();
-        ps.close();
-        c.close();
-        return cnt;
+                }
+            }
+            if(c != null){
+                try{
+                    c.close();
+                }catch (SQLException e){
+
+                }
+            }
+        }
+
     }
 
     public User findById(String id) throws SQLException {
