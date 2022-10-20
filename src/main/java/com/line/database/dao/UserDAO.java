@@ -35,7 +35,7 @@ public class UserDAO {
         c.close();
     }
 
-    public void getCount() throws SQLException {
+    public int getCount() throws SQLException {
         Connection c = connectionmaker.getConnection();
         String sql = "select * from usertable";
         PreparedStatement ps = c.prepareStatement(sql);
@@ -49,6 +49,26 @@ public class UserDAO {
         rs.close();
         ps.close();
         c.close();
+        return cnt;
+    }
+
+    public User findById(String id) throws SQLException {
+        Connection c = connectionmaker.getConnection();
+        String sql = "select * from usertable where id = ?";
+        PreparedStatement ps = c.prepareStatement(sql);
+        ps.setString(1,id);
+        ResultSet rs = ps.executeQuery();
+        User temp = new User();
+
+            temp.setId(rs.getString(1));
+            temp.setPassword(rs.getString(2));
+            temp.setName(rs.getString(3));
+
+        rs.close();
+        ps.close();
+        c.close();
+
+        return temp;
     }
 
     public void select(String id) throws SQLException {
