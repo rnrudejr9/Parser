@@ -2,6 +2,7 @@ package com.line.database.dao;
 
 import com.line.database.connection.ConnectionMaker;
 import com.line.domain.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -58,15 +59,21 @@ public class UserDAO {
         PreparedStatement ps = c.prepareStatement(sql);
         ps.setString(1,id);
         ResultSet rs = ps.executeQuery();
-        User temp = new User();
+        User temp = null;
 
+        if(rs.next()) {
+            temp = new User();
             temp.setId(rs.getString(1));
             temp.setPassword(rs.getString(2));
             temp.setName(rs.getString(3));
+        }
 
         rs.close();
         ps.close();
         c.close();
+
+
+        if(temp == null) throw new EmptyResultDataAccessException(1);
 
         return temp;
     }

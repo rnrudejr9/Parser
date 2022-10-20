@@ -26,14 +26,13 @@ class UserDAOTest {
 
     @Test
     void addAndGet() throws SQLException {
-        User user1 = new User("4","hell","123");
+        User user1 = new User("234","hell","123");
 
         UserDAO userDao = context.getBean("userDao",UserDAO.class);
         userDao.deleteAll();
 
         userDao.add(user1);
         User user = userDao.findById("4");
-
         assertEquals(user1.getId(),user.getId());
     }
 
