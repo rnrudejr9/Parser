@@ -1,6 +1,7 @@
 package com.line.database.dao;
 
 import com.line.database.connection.ConnectionMaker;
+import com.line.database.strategy.DeleteAllStrategy;
 import com.line.domain.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -16,7 +17,7 @@ public class UserDAO {
 
     public void add(User user) throws SQLException {
         Connection c = connectionmaker.getConnection();
-        String sql = "insert into usertable(id,name,password) values (?,?,?)";
+        String sql = "insert into user(id,name,password) values (?,?,?)";
         PreparedStatement ps = c.prepareStatement(sql);
         ps.setString(1, user.getId());
         ps.setString(2, user.getName());
@@ -28,12 +29,11 @@ public class UserDAO {
     }
     public void deleteAll() throws SQLException {
         Connection c = null;
-        String sql = "delete from usertable";
         PreparedStatement ps = null;
 
         try{
             c = connectionmaker.getConnection();
-            ps = c.prepareStatement(sql);
+            ps = new DeleteAllStrategy().makePreparedStatement(c);
             ps.executeUpdate();
         } catch (RuntimeException e){
             throw new RuntimeException(e);
@@ -58,7 +58,7 @@ public class UserDAO {
     public int getCount() throws SQLException {
         Connection c = null;
         PreparedStatement ps = null;
-        String sql = "select * from usertable";
+        String sql = "select * from user";
         try{
             c = connectionmaker.getConnection();
             ps = c.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class UserDAO {
 
     public User findById(String id) throws SQLException {
         Connection c = connectionmaker.getConnection();
-        String sql = "select * from usertable where id = ?";
+        String sql = "select * from user where id = ?";
         PreparedStatement ps = c.prepareStatement(sql);
         ps.setString(1,id);
         ResultSet rs = ps.executeQuery();
@@ -117,7 +117,7 @@ public class UserDAO {
 
     public void select(String id) throws SQLException {
             Connection c = connectionmaker.getConnection();
-            String sql = "select * from usertable where id = ?";
+            String sql = "select * from user where id = ?";
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1,id);
             ResultSet rs = ps.executeQuery();

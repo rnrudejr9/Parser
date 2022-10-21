@@ -52,7 +52,7 @@ class UserDAOTest {
         assertEquals(user2.getId(),user.getId());
     }
 
-    @IgnoreForBinding
+    @Test
     void findById(){
         assertThrows(EmptyResultDataAccessException.class,()->{
             userDao.findById("30");
@@ -60,7 +60,7 @@ class UserDAOTest {
         System.out.println("ignore");
     }
 
-    @AfterEach
+    @Test
     void count() throws SQLException {
         User user1 = new User("1","hello","1234");
         User user2 = new User("2","sdsd","1234");
