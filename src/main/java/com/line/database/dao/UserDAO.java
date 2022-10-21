@@ -3,6 +3,7 @@ package com.line.database.dao;
 import com.line.database.connection.ConnectionMaker;
 import com.line.database.strategy.AddStrategy;
 import com.line.database.strategy.DeleteAllStrategy;
+import com.line.database.strategy.StatementStrategy;
 import com.line.domain.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -16,26 +17,15 @@ public class UserDAO {
         this.connectionmaker = connectionmaker;
     }
 
-    public void add(User user) throws SQLException {
-        Connection c = connectionmaker.getConnection();
-        PreparedStatement ps = new AddStrategy().makePreparedStatement(c);
-        ps.setString(1, user.getId());
-        ps.setString(2, user.getName());
-        ps.setString(3, user.getPassword());
-        ps.executeUpdate();
-
-        ps.close();
-        c.close();
-    }
-    public void deleteAll() throws SQLException {
+    public void jdbcContextWithStatementStrategy(StatementStrategy stmt){
         Connection c = null;
         PreparedStatement ps = null;
 
         try{
             c = connectionmaker.getConnection();
-            ps = new DeleteAllStrategy().makePreparedStatement(c);
+            ps = stmt.makePreparedStatement(c);
             ps.executeUpdate();
-        } catch (RuntimeException e){
+        } catch (RuntimeException | SQLException e){
             throw new RuntimeException(e);
         } finally {
             if(ps != null){
@@ -53,6 +43,15 @@ public class UserDAO {
                 }
             }
         }
+    }
+
+    public void add(User user) throws SQLException {
+        AddStrategy addStrategy = new AddStrategy();
+        addStrategy.setUser(user);
+        jdbcContextWithStatementStrategy(new AddStrategy());
+    }
+    public void deleteAll() throws SQLException {
+        jdbcContextWithStatementStrategy(new DeleteAllStrategy());
     }
 
     public int getCount() throws SQLException {
@@ -139,4 +138,7 @@ public class UserDAO {
             ps.close();
             c.close();
     }
+
+
+
 }
