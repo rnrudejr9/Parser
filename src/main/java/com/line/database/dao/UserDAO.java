@@ -1,6 +1,7 @@
 package com.line.database.dao;
 
 import com.line.database.connection.ConnectionMaker;
+import com.line.database.strategy.AddStrategy;
 import com.line.database.strategy.DeleteAllStrategy;
 import com.line.domain.User;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,8 +18,7 @@ public class UserDAO {
 
     public void add(User user) throws SQLException {
         Connection c = connectionmaker.getConnection();
-        String sql = "insert into user(id,name,password) values (?,?,?)";
-        PreparedStatement ps = c.prepareStatement(sql);
+        PreparedStatement ps = new AddStrategy().makePreparedStatement(c);
         ps.setString(1, user.getId());
         ps.setString(2, user.getName());
         ps.setString(3, user.getPassword());
