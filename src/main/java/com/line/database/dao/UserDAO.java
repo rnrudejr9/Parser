@@ -7,14 +7,15 @@ import com.line.database.strategy.StatementStrategy;
 import com.line.domain.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    private ConnectionMaker connectionmaker;
-    public UserDAO(ConnectionMaker connectionmaker){
-        this.connectionmaker = connectionmaker;
+    private DataSource dataSource;
+    public UserDAO(DataSource dataSource){
+        this.dataSource = dataSource;
     }
 
     public void jdbcContextWithStatementStrategy(StatementStrategy stmt){
@@ -22,7 +23,7 @@ public class UserDAO {
         PreparedStatement ps = null;
 
         try{
-            c = connectionmaker.getConnection();
+            c = dataSource.getConnection();
             ps = stmt.makePreparedStatement(c);
             ps.executeUpdate();
         } catch (RuntimeException | SQLException e){
@@ -49,7 +50,7 @@ public class UserDAO {
         jdbcContextWithStatementStrategy(new StatementStrategy() {
             @Override
             public PreparedStatement makePreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement("insert into user(id,name,password) values (?,?,?)");
+                PreparedStatement ps = connection.prepareStatement("insert into users(id,name,password) values (?,?,?)");
                 ps.setString(1,user.getId());
                 ps.setString(2,user.getName());
                 ps.setString(3,user.getPassword());
@@ -67,44 +68,24 @@ public class UserDAO {
         });
     }
 
-    public int getCount() throws SQLException {
-        Connection c = null;
-        PreparedStatement ps = null;
-        String sql = "select * from user";
-        try{
-            c = connectionmaker.getConnection();
-            ps = c.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+    public void getCount() throws SQLException {
+        jdbcContextWithStatementStrategy(new StatementStrategy() {
             int cnt = 0;
-            while (rs.next()){
-                cnt++;
-            }
-            System.out.println("count: " + cnt);
-            return cnt;
-        }catch (RuntimeException e){
-            throw new RuntimeException(e);
-        } finally {
-            if(ps != null){
-                try{
-                    ps.close();
-                }catch (SQLException e){
+            @Override
+            public PreparedStatement makePreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement stmt = connection.prepareStatement("select from users");
+                ResultSet rs = stmt.getResultSet();
 
-                }
+                System.out.println(cnt);
+                return stmt;
             }
-            if(c != null){
-                try{
-                    c.close();
-                }catch (SQLException e){
-
-                }
-            }
-        }
+        });
 
     }
 
     public User findById(String id) throws SQLException {
-        Connection c = connectionmaker.getConnection();
-        String sql = "select * from user where id = ?";
+        Connection c = dataSource.getConnection();
+        String sql = "select * from users where id = ?";
         PreparedStatement ps = c.prepareStatement(sql);
         ps.setString(1,id);
         ResultSet rs = ps.executeQuery();
@@ -128,8 +109,8 @@ public class UserDAO {
     }
 
     public void select(String id) throws SQLException {
-            Connection c = connectionmaker.getConnection();
-            String sql = "select * from user where id = ?";
+            Connection c = dataSource.getConnection();
+            String sql = "select * from users where id = ?";
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1,id);
             ResultSet rs = ps.executeQuery();

@@ -67,21 +67,11 @@ class UserDAOTest {
         User user3 = new User("3","helsalo","1234");
 
         userDao.deleteAll();
-        assertEquals(0,userDao.getCount());
-
-        userDao.add(user1);
-        assertEquals(1,userDao.getCount());
-        userDao.add(user2);
-        assertEquals(2,userDao.getCount());
-        userDao.add(user3);
-        assertEquals(3,userDao.getCount());
         System.out.println("aftereach");
     }
     @Test
     public void deleteAll() throws SQLException {
-
-        UserDAO userDao = new DAOFactory().userDao();
-        userDao.getCount(); //delete -> getcount;
+        userDao.deleteAll();
     }
 
 
