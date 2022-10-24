@@ -46,12 +46,25 @@ public class UserDAO {
     }
 
     public void add(User user) throws SQLException {
-        AddStrategy addStrategy = new AddStrategy();
-        addStrategy.setUser(user);
-        jdbcContextWithStatementStrategy(new AddStrategy());
+        jdbcContextWithStatementStrategy(new StatementStrategy() {
+            @Override
+            public PreparedStatement makePreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("insert into user(id,name,password) values (?,?,?)");
+                ps.setString(1,user.getId());
+                ps.setString(2,user.getName());
+                ps.setString(3,user.getPassword());
+                return ps;
+            }
+        });
     }
     public void deleteAll() throws SQLException {
-        jdbcContextWithStatementStrategy(new DeleteAllStrategy());
+        jdbcContextWithStatementStrategy(new StatementStrategy() {
+            @Override
+            public PreparedStatement makePreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement stmt = connection.prepareStatement("delete from users");
+                return stmt;
+            }
+        });
     }
 
     public int getCount() throws SQLException {

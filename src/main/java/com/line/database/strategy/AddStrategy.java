@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 public class AddStrategy implements StatementStrategy{
 
-    public static User user;
+    public User user;
 
-    public static void setUser(User user) {
-        AddStrategy.user = user;
+    public AddStrategy(User user) {
+        this.user = user;
     }
 
     @Override
