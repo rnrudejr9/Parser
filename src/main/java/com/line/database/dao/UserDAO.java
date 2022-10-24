@@ -3,6 +3,7 @@ package com.line.database.dao;
 import com.line.database.connection.ConnectionMaker;
 import com.line.database.strategy.AddStrategy;
 import com.line.database.strategy.DeleteAllStrategy;
+import com.line.database.strategy.JdbcContext;
 import com.line.database.strategy.StatementStrategy;
 import com.line.domain.User;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,8 +15,10 @@ import java.util.List;
 
 public class UserDAO {
     private DataSource dataSource;
+    private JdbcContext jdbcContext;
     public UserDAO(DataSource dataSource){
         this.dataSource = dataSource;
+        this.jdbcContext = new JdbcContext(dataSource);
     }
 
     public void jdbcContextWithStatementStrategy(StatementStrategy stmt){
@@ -47,7 +50,7 @@ public class UserDAO {
     }
 
     public void add(User user) throws SQLException {
-        jdbcContextWithStatementStrategy(new StatementStrategy() {
+        jdbcContext.workWithStatementStrategy(new StatementStrategy() {
             @Override
             public PreparedStatement makePreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement("insert into users(id,name,password) values (?,?,?)");
