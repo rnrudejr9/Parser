@@ -2,7 +2,8 @@
 
 * IDE : intellij
 * Language : java
-* Database : mysql
+* Database : mysql(jdbc driver gradle)
+* Server : aws
 * 프로그램
     * csv파일을 읽어 필요한 부분을 추출
     * 추출한 내용을 객체에 저장
