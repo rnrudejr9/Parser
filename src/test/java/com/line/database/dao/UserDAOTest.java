@@ -19,6 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -61,16 +63,18 @@ class UserDAOTest {
     }
 
     @Test
-    void count() throws SQLException {
-        User user1 = new User("1","hello","1234");
-        User user2 = new User("2","sdsd","1234");
-        User user3 = new User("3","helsalo","1234");
+    public void getAll(){
+        List<User> list = new ArrayList<>();
+        list = userDao.getAll();
+        assertEquals(list.size(), 0);
 
-        userDao.deleteAll();
-        System.out.println("aftereach");
+        User user1 = new User("1","1","1");
+        userDao.add(user1);
+        list = userDao.getAll();
+        assertEquals(list.size(),1);
     }
     @Test
-    public void deleteAll() throws SQLException {
+    public void deleteAll() {
         userDao.deleteAll();
     }
 

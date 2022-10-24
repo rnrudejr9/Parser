@@ -11,7 +11,6 @@ import java.sql.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
 //        LineReader<Hospital> lr = new LineReader<>(new HospitalParser());
 //        String filename = "C:\\Users\\KOO\\git\\CodeLion-Git\\서울시 병의원 위치 정보.csv";
 //        List<Hospital> hospitals = lr.readLines(filename);
@@ -21,17 +20,5 @@ public class Main {
 //        sw.sqlWrite("hospital.sql",hospitals);
         //sw write 메소드로 hospital list 에 있는 정보들을 hospital.sql 파일에 쓰기
 
-        UserDAO dao = new DAOFactory().userDao();
-        try {
-            dao.deleteAll();
-            dao.add(new User("hello","k","pw"));
-            dao.add(new User("123423","k","pw"));
-            dao.add(new User("21341234","k","pw"));
-            dao.select("hello");
-            dao.getCount();
-            dao.deleteAll();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
