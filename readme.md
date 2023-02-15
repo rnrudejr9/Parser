@@ -17,10 +17,12 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=300&section=header&text=오늘부터%20운동메💪&fontSize=70)
 
 # 오늘부터 운동메💪
-* **지역주민들과 함께 운동메가 되어보아요**
+* **운동은 선택이 아닌 필수! 혼자가 아닌 다같이 하자~**
+* **사용자에게 쉽고 간단한 운동메이트를 찾을 수 있게 하는 서비스 제공**
+* **새로운 지역에서도 운동으로 이웃들과 친해지고 생활체육 활성화 기대**
 * **멋쟁이사자처럼 백엔드스쿨 2기 팀프로젝트**
 
-##### <div align = "center"> "지역생활 주민 내용 들어가기" </div>
+##### <div align = "center"> "위치 기반으로 동네 운동 메이트를 찾아 함께 스포츠를 즐기는 서비스" </div>
 ##### <div align = "center"> <a href="naver.com">오늘부터 운동메</a> </div>
 
 
@@ -52,18 +54,23 @@
 
 #### USER 
 - [x] 로그인
+   * 입력한 ID, PW 를 통해 로그인
+   * 로그인 성공 시 JWT 토큰 cookie 로 저장해서 클라이언트 저장
 - [ ] 회원가입
+   * Email 인증 / ID 중복체크 / PW 검사 / 
 - [ ] Oauth 로그인
+   * 
 - [ ] ID/PW 찾기
-- [ ] Email 인증
+   * 
 
 #### CREW
 - [ ] 크루 CRUD
-   - [ ] 소개 사진 등록
-   - [ ] SOFTDELETE
-   - [ ] 
+   * 소개 사진 등록
+   * SOFTDELETE
+   * 크루 작성 시 채팅방 생성 
 - [ ] 크루 댓글/대댓글
 - [ ] 크루 좋아요
+   
 - [ ] 크루 참여
 - [ ] 크루 참여 승인/거절
 - [ ] 참여자 명단 조회
@@ -75,6 +82,7 @@
 
 #### ALARM
 - [ ] 알림 기능
+   * 
 
 #### MATCHING
 - [ ] 실시간 매칭기능
@@ -107,3 +115,12 @@
 
 
 <br>
+
+## 🚴‍♀️ 시스템 아키텍쳐
+![image](https://user-images.githubusercontent.com/49141751/218945679-0d0e1bb6-0655-4313-80e5-9e264bafa0c7.png)
+
+<br>
+
+## 🤸‍♀️ ERD
+
+
